@@ -59,3 +59,4 @@ Cliquer sur **"Download ZIP"** en allant sur votre copie du dépôt.
 ![dlownload_state](images/download_state.png)
 
 ☝️ **BIEN VERIFIER LE CONTENU DU FICHIER ZIP AVANT DE RENDRE VOTRE TRAVAIL 🧘‍♂️**
+KADIMI Hamza
