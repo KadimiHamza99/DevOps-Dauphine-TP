@@ -214,7 +214,7 @@ Notre but, ne l'oublions pas est de déployer wordpress sur Cloud Run !
 
 1. Utiliser Cloud Build pour appliquer les changements d'infrastructure
 2. Quelles critiques du TP pouvez vous faire ? Quels sont les éléments redondants de notre configuration ?
-   1. Quels paramètres avons nous dû recopier plusieurs fois ?
-   2. Comment pourrions nous faire pour ne pas avoir à les recopier ?
-   3. Quels paramètres de la ressource Cloud Run peuvent être utilisés pour simplifier la gestion de notre application ?
+   1. Quels paramètres avons nous dû recopier plusieurs fois ? -> Le projectId, les ports, les noms de nos images
+   2. Comment pourrions nous faire pour ne pas avoir à les recopier ? -> Créer des variables d'environnements
+   3. Quels paramètres de la ressource Cloud Run peuvent être utilisés pour simplifier la gestion de notre application ? -> l'image docker de notre wordpress et aussi le port qu'on va utiliser
    4. Créer une nouvelle ressource terraform de Cloud Run et appliquer lui les améliorations 😌
