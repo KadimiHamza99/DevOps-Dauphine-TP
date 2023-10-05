@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/basic-lock-349116/website-tools/cb-wordpress-image:tag1', '.' ]
+  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/basic-lock-349116/website-tools/cb-wordpress-image:tag2', '.' ]
 images:
-- 'us-central1-docker.pkg.dev/basic-lock-349116/website-tools/cb-wordpress-image:tag1'
+- 'us-central1-docker.pkg.dev/basic-lock-349116/website-tools/cb-wordpress-image:tag2'

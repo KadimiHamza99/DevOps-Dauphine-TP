@@ -183,10 +183,17 @@ Notre but, ne l'oublions pas est de déployer wordpress sur Cloud Run !
 2. Observer les journaux de Cloud Run (logs) sur : https://console.cloud.google.com/run/detail/us-central1/serveur-wordpress/logs.
    1. Véirifer la présence de l'entrée `No 'wp-config.php' found in /var/www/html, but 'WORDPRESS_...' variables supplied; copying 'wp-config-docker.php' (WORDPRESS_DB_HOST WORDPRESS_DB_PASSWORD WORDPRESS_DB_USER)`
    2. Au bout de 5 min, que se passe-t-il ? 🤯🤯🤯
+   - Il y a une erreur
    3. Regarder le resultat de votre commande `terraform apply` et observer les logs de Cloud Run
+   - Il y a une erreur au niveau du binding des ports : The user-provided container failed to start and listen on the port defined provided by the PORT=8080 environment variable.
    4. Quelle est la raison de l'erreur ? Que faut-il changer dans les paramètre de notre ressource terraform `google_cloud_run_service` ?
+   - c'est à cause du port, il faut le changer sur la configuration terraform (ajouter le port 80 pour le service cloud run)
 
 3. A l'aide de la documentation terraform, d'internet ou de ChatGPT, ou même d'un certain TP 😌 faites en sorte que Cloud Run soit correctement configuré pour utiliser votre image Docker wordpress.
+- Il faut ajouter 
+        ports {
+          container_port = 80
+        }
 
 4. Autoriser toutes les adresses IP à se connecter à notre base MySQL (sous réserve d'avoir l'utilisateur et le mot de passe évidemment)
    1. Pour le faire, exécuter la commande
@@ -199,6 +206,8 @@ Notre but, ne l'oublions pas est de déployer wordpress sur Cloud Run !
    1. Aller sur : https://console.cloud.google.com/run/detail/us-central1/serveur-wordpress/metrics?
    2. Cliquer sur l'URL de votre Cloud Run : similaire à https://serveur-wordpress-oreldffftq-uc.a.run.app
    3. Que voyez vous ? 🙈
+   - C'est la meme page de configuration de langues qu'on a trouvé tout à l'heure
+   voici le lien de mon deploiement "https://serveur-wordpress-nlpibxbyqq-uc.a.run.app/wp-admin/install.php"
 
 
 ## BONUS : Partie 4
