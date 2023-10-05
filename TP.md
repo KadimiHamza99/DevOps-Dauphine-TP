@@ -50,11 +50,11 @@ Nous allons créer les ressources suivantes à l'aide de Terraform :
 5. Vérifier que notre utilisateur existe bien : https://console.cloud.google.com/sql/instances/main-instance/users (veiller à bien séléctionner le projet GCP sur lequel vous avez déployé vos ressources)
 6. Rendez-vous sur https://console.cloud.google.com/sql/instances/main-instance/databases. Quelles sont les base de données présentes sur votre instance `main-instance` ? Quels sont les types ?
 
-->  information_schema	System		
-    mysql               System		
-    performance_schema	System		
-    sys	                System		
-    wordpress	        User		
+-    information_schema	    System		
+-    mysql                  System		
+-    performance_schema	    System		
+-    sys	                System		
+-    wordpress	            User		
 
 
 ## Partie 2 : Docker
@@ -64,21 +64,32 @@ Wordpress dispose d'une image Docker officielle disponible sur [DockerHub](https
 1. Récupérer l'image sur votre machine (Cloud Shell)
 
 2. Lancer l'image docker et ouvrez un shell à l'intérieur de votre container:
-   1. Quel est le répertoire courant du container (WORKDIR) ?
+   1. Quel est le répertoire courant du container (WORKDIR) ? 
+   - /var/www/html
    2. Que contient le fichier `index.php` ?
+   - C'est le fichier d'entrée principal qui charge le contenu et le theme de ma page wordpress
 
 3. Supprimez le container puis relancez en un en spécifiant un port binding (une correspondance de port).
 
    1. Vous devez pouvoir communiquer avec le port par défaut de wordpress : **80** (choisissez un port entre 8000 et 9000 sur votre machine hôte => cloudshell)
 
    2. Avec la commande `curl`, faites une requêtes depuis votre machine hôte à votre container wordpress. Quelle est la réponse ? (il n'y a pas piège, essayez sur un port non utilisé pour constater la différence)
+   - Lorsque je lance la commande  0.0.0.0:8000 rien n'est affiché
+      Lorsque je lance la commande 0.0.0.0:80 j'ai en output curl: (7) Failed to connect to localhost port 80: Connection refused
 
    3. Afficher les logs de votre container après avoir fait quelques requêtes, que voyez vous ?
+   - Je vois la trace des requetes que j'ai envoyé 
+       - 172.18.0.1 - - [05/Oct/2023:08:15:54 +0000] "GET / HTTP/1.1" 302 233 "-" "curl/7.74.0"
+       - 172.18.0.1 - - [05/Oct/2023:08:16:01 +0000] "GET / HTTP/1.1" 302 233 "-" "curl/7.74.0"
+       - 172.18.0.1 - - [05/Oct/2023:08:16:14 +0000] "GET / HTTP/1.1" 302 235 "-" "curl/7.74.0"
+       - 172.18.0.1 - - [05/Oct/2023:08:17:41 +0000] "GET / HTTP/1.1" 302 233 "-" "curl/7.74.0"
+
    4. Utilisez l'aperçu web pour afficher le résultat du navigateur qui se connecte à votre container wordpress
       1. Utiliser la fonction `Aperçu sur le web`
         ![web_preview](images/wordpress_preview.png)
       2. Modifier le port si celui choisi n'est pas `8000`
       3. Une fenètre s'ouvre, que voyez vous ?
+      - Il y a une page web qui s'ouvre et me demande de configurer la langue par default
 
 4. A partir de la documentation, remarquez les paramètres requis pour la configuration de la base de données.
 
@@ -96,6 +107,7 @@ Wordpress dispose d'une image Docker officielle disponible sur [DockerHub](https
    1. Créer un dépôt de type `DOCKER` sur artifact registry (si pas déjà fait, sinon utiliser celui appelé `website-tools`)
    2. Créer une configuration cloudbuild pour construire l'image docker et la publier sur le depôt Artifact Registry
    3. Envoyer (`submit`) le job sur Cloud Build et vérifier que l'image a bien été créée
+   
 
 ## Partie 3 : Déployer Wordpress sur Cloud Run 🔥
 
